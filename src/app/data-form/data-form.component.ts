@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,7 +31,7 @@ export class DataFormComponent implements OnInit {
       cpf: [null, Validators.required],
       dataNascimento: [null, Validators.required],
       senha: [this.gerarSenha(), Validators.required],
-      endereco: ['testando endereco'],
+      endereco: [],
       id: []
     });
   }
@@ -53,9 +51,9 @@ export class DataFormComponent implements OnInit {
     }
 
     atribuirEndereco() {
-      // this.enderecos.push(this.formEndereco.value)
-      // this.formPessoa.patchValue({endereco: this.enderecos})
-      // this.criarFormEndereco()
+      this.enderecos.push(this.formEndereco.value)
+      this.formPessoa.patchValue({endereco: this.enderecos})
+      this.criarFormEndereco()
     }
 
     criarPessoaEndereco(pessoa: any): {}{
@@ -78,12 +76,12 @@ export class DataFormComponent implements OnInit {
         return; // Interrompe o envio se algum dos formulários for inválido
       }
 
-      //this.formPessoa.controls['endereco'].value?.forEach((x: any) => {
-        //x.pessoa = this.criarPessoaEndereco(this.formPessoa.value)
-      //})
+      this.formPessoa.controls['endereco'].value?.forEach((x: any) => {
+        x.pessoa = this.criarPessoaEndereco(this.formPessoa.value)
+      })
 
 
-      console.log('formularioValue',this.formPessoa.value);  // Exibe todos os dados do formulário, incluindo o endereço
+      console.log('formularioValue', this.formPessoa.value);  // Exibe todos os dados do formulário, incluindo o endereço
 
       const valor = this.formPessoa.value
 
@@ -92,9 +90,6 @@ export class DataFormComponent implements OnInit {
         next: (res) => {
           if (HttpEventType.Response === res.type)
               alert('Pessoa cadastrada com sucesso')
-        },
-        error:() => {
-          alert('Falha no cadastro')
         }
       })
     }
@@ -104,7 +99,7 @@ export class DataFormComponent implements OnInit {
   }
 
   enviarPessoa(pessoa: any) {
-    return this.http.post('http://localhost:8080/pessoas/cadastrar-pessoa', pessoa,{observe: 'events', reportProgress: true})
+    return this.http.post(`http://localhost:8080/pessoas/cadastrar-pessoa`, pessoa, {observe: 'events', reportProgress: true})
     // pipe(
     //   map(response => {
     //     console.log('Resposta do servidor:', response);
