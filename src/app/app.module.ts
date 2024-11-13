@@ -23,7 +23,6 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     ReactiveFormsModule,
     DataFormModule,
-    
   ],
   providers: [provideHttpClient()],
   bootstrap: [AppComponent]

@@ -1,204 +1,217 @@
-<form class="form-horizontal" [formGroup]="formPessoa" (ngSubmit)="onSubmit()">
-  <div class="form-group" [ngClass]="aplicaCssErro('nome')">
-    <div class="col-sm-12">
-      <label for="nome" class="control-label">Nome</label>
-    </div>
-    <div class="col-sm-12">
-      <input type="text" class="form-control" formControlName="nome" id="nome" placeholder="Nome">
-      <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('nome')"
-        msgErro="Nome é obrigatório">
-      </app-campo-control-erro>
-    </div>
+
+<fieldset class="fieldset-format">
+  <div style="margin: 10px 10px 10px 10px;">
+    <header>Dados Básicos pessoa</header>
+
+    <form class="form-horizontal" [formGroup]="formPessoa" (ngSubmit)="onSubmit()">
+      <div class="form-group" [ngClass]="aplicaCssErro('nome')">
+        <div class="col-sm-12">
+          <label for="nome" class="control-label">Nome</label>
+        </div>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" formControlName="nome" id="nome" placeholder="Nome">
+          <app-campo-control-erro
+            [mostrarErro]="verificaValidTouched('nome')"
+            msgErro="Nome é obrigatório">
+          </app-campo-control-erro>
+        </div>
+      </div>
+    
+      <div class="form-group" [ngClass]="aplicaCssErro('email')">
+        <div class="col-sm-12">
+          <label for="email" class="control-label">Email</label>
+        </div>
+        <div class="col-sm-12">
+          <input type="email" class="form-control" formControlName="email" id="email" placeholder="nome@email.com">
+          <app-campo-control-erro
+            [mostrarErro]="verificaValidTouched('email')"
+            msgErro="Email é obrigatório.">
+          </app-campo-control-erro>
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <div class="col-md-3">
+          <label for="dataNascimento">Data de Nascimento:</label>
+          <input
+            type="date"
+            id="dataNascimento"
+            formControlName="dataNascimento"
+            class="form-control"
+            required>
+        </div>
+      </div>
+    
+      <div class="form-group" [ngClass]="aplicaCssErro('cpf')">
+        <div class="col-sm-12">
+          <label for="cpf" class="control-label">CPF</label>
+        </div>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" formControlName="cpf" id="cpf" placeholder="CPF">
+          <app-campo-control-erro
+            [mostrarErro]="verificaValidTouched('cpf')"
+            msgErro="CPF é obrigatório">
+          </app-campo-control-erro>
+        </div>
+      </div>
+  
+      <fieldset class="fieldset-format">
+        <div style="margin: 10px 10px 10px 10px;">
+          <header>Endereço</header>
+          <!-- rua numero bairro complemento cidade cep estado -->
+          <form [formGroup]="formEndereco" (ngSubmit)="onSubmit()">
+            <legend>Endereço</legend>
+            <div class="form-group" [ngClass]="aplicaCssErro('rua')">
+              <div class="col-sm-12">
+                <label for="rua" class="control-label">Rua</label>
+              </div>
+              <div class="col-sm-12">
+                <input
+                type="text"
+                class="form-control"
+                formControlName="rua"
+                id="rua"
+                placeholder="Rua">
+                <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('rua')"
+                msgErro="Rua é obrigatório">
+              </app-campo-control-erro>
+              </div>
+            </div>
+        
+            <div class="form-group" [ngClass]="aplicaCssErro('numero')">
+              <div class="col-sm-3">
+                <label for="numero" class="control-label">Número</label>
+              </div>
+              <div class="col-sm-3">
+                <input
+                type="text"
+                class="form-control"
+                formControlName="numero"
+                id="numero"
+                placeholder="Número">
+                <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('numero')"
+                msgErro="Número é obrigatório">
+              </app-campo-control-erro>
+              </div>
+            </div>
+        
+            <div class="form-group" [ngClass]="aplicaCssErro('bairro')">
+              <div class="col-sm-3">
+                <label for="bairro" class="control-label">Bairro</label>
+              </div>
+              <div class="col-sm-3">
+                <input
+                type="text"
+                class="form-control"
+                formControlName="bairro"
+                id="bairro"
+                placeholder="Bairro">
+                <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('bairro')"
+                msgErro="Bairro é obrigatório">
+              </app-campo-control-erro>
+              </div>
+            </div>
+        
+            <div class="form-group" [ngClass]="aplicaCssErro('complemento')">
+              <div class="col-sm-3">
+                <label for="complemento" class="control-label">Complemento</label>
+              </div>
+              <div class="col-sm-3">
+                <input
+                type="text"
+                class="form-control"
+                formControlName="complemento"
+                id="complemento"
+                placeholder="complemento">
+                <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('complemento')"
+                msgErro="complemento é obrigatório">
+              </app-campo-control-erro>
+              </div>
+            </div>
+        
+            <div class="form-group" [ngClass]="aplicaCssErro('cidade')">
+              <div class="col-sm-3">
+                <label for="cidade" class="control-label">Cidade</label>
+              </div>
+              <div class="col-sm-3">
+                <input
+                type="text"
+                class="form-control"
+                formControlName="cidade"
+                id="cidade"
+                placeholder="Cidade">
+                <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('cidade')"
+                msgErro="cidade é obrigatório">
+              </app-campo-control-erro>
+              </div>
+            </div>
+        
+            <div class="form-group" [ngClass]="aplicaCssErro('cep')">
+              <div class="col-sm-3">
+                <label for="cep" class="control-label">Cep</label>
+              </div>
+              <div class="col-sm-3">
+                <input
+                type="text"
+                class="form-control"
+                formControlName="cep"
+                id="cep"
+                placeholder="Cep">
+                <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('cep')"
+                msgErro="Cep é obrigatório">
+              </app-campo-control-erro>
+              </div>
+            </div>
+        
+            <div class="form-group" [ngClass]="aplicaCssErro('estado')">
+              <div class="col-sm-3">
+                <label for="cep" class="control-label">Estado</label>
+              </div>
+              <div class="col-sm-3">
+                <input
+                type="text"
+                class="form-control"
+                formControlName="estado"
+                id="estado"
+                placeholder="Estado">
+                <app-campo-control-erro
+                [mostrarErro]="verificaValidTouched('estado')"
+                msgErro="Estado é obrigatório">
+              </app-campo-control-erro>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </fieldset>
+    
+    
+      <div class="form-group" [ngClass]="aplicaCssErro('senha')">
+        <div class="col-sm-12">
+          <label for="senha" class="control-label">Senha</label>
+        </div>
+        <div class="col-sm-12">
+          <input type="text" class="form-control" formControlName="senha" id="senha" placeholder="Senha">
+          <app-campo-control-erro [mostrarErro]="verificaValidTouched('senha')" msgErro="Senha é obrigatória."></app-campo-control-erro>
+        </div>
+      </div>
+  
+  
+    
+      <button type="button" class="btn" (click)="atribuirEndereco()">Cadastrar Endereço </button>
+      <button type="submit" class="btn btn-primary">Enviar Cadastro</button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="gerarNovaSenha()">Gerar Nova Senha</button>
+      <button type="button" class="btn" (click)="resetar()">Cancelar</button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="navegarParaLogin()">Já tem uma conta? Faça Login</button>
+    
+      <!-- <app-form-debug [form]="formPessoa"></app-form-debug>
+      <app-form-debug [form]="formEndereco"></app-form-debug> -->
+    </form>
   </div>
-
-  <div class="form-group" [ngClass]="aplicaCssErro('email')">
-    <div class="col-sm-12">
-      <label for="email" class="control-label">Email</label>
-    </div>
-    <div class="col-sm-12">
-      <input type="email" class="form-control" formControlName="email" id="email" placeholder="nome@email.com">
-      <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('email')"
-        msgErro="Email é obrigatório.">
-      </app-campo-control-erro>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-md-3">
-      <label for="dataNascimento">Data de Nascimento:</label>
-      <input
-        type="date"
-        id="dataNascimento"
-        formControlName="dataNascimento"
-        class="form-control"
-        required>
-    </div>
-  </div>
-
-  <div class="form-group" [ngClass]="aplicaCssErro('cpf')">
-    <div class="col-sm-12">
-      <label for="cpf" class="control-label">CPF</label>
-    </div>
-    <div class="col-sm-12">
-      <input type="text" class="form-control" formControlName="cpf" id="cpf" placeholder="CPF">
-      <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('cpf')"
-        msgErro="CPF é obrigatório">
-      </app-campo-control-erro>
-    </div>
-  </div>
-
-  <!-- rua numero bairro complemento cidade cep estado -->
-  <form [formGroup]="formEndereco" (ngSubmit)="onSubmit()">
-    <legend>Endereço</legend>
-    <div class="form-group" [ngClass]="aplicaCssErro('rua')">
-      <div class="col-sm-12">
-        <label for="rua" class="control-label">Rua</label>
-      </div>
-      <div class="col-sm-12">
-        <input
-        type="text"
-        class="form-control"
-        formControlName="rua"
-         id="rua"
-        placeholder="Rua">
-        <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('rua')"
-        msgErro="Rua é obrigatório">
-      </app-campo-control-erro>
-      </div>
-    </div>
-
-    <div class="form-group" [ngClass]="aplicaCssErro('numero')">
-      <div class="col-sm-3">
-        <label for="numero" class="control-label">Número</label>
-      </div>
-      <div class="col-sm-3">
-        <input
-        type="text"
-        class="form-control"
-        formControlName="numero"
-         id="numero"
-        placeholder="Número">
-        <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('numero')"
-        msgErro="Número é obrigatório">
-      </app-campo-control-erro>
-      </div>
-    </div>
-
-    <div class="form-group" [ngClass]="aplicaCssErro('bairro')">
-      <div class="col-sm-3">
-        <label for="bairro" class="control-label">Bairro</label>
-      </div>
-      <div class="col-sm-3">
-        <input
-        type="text"
-        class="form-control"
-        formControlName="bairro"
-         id="bairro"
-        placeholder="Bairro">
-        <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('bairro')"
-        msgErro="Bairro é obrigatório">
-      </app-campo-control-erro>
-      </div>
-    </div>
-
-    <div class="form-group" [ngClass]="aplicaCssErro('complemento')">
-      <div class="col-sm-3">
-        <label for="complemento" class="control-label">Complemento</label>
-      </div>
-      <div class="col-sm-3">
-        <input
-        type="text"
-        class="form-control"
-        formControlName="complemento"
-         id="complemento"
-        placeholder="complemento">
-        <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('complemento')"
-        msgErro="complemento é obrigatório">
-      </app-campo-control-erro>
-      </div>
-    </div>
-
-    <div class="form-group" [ngClass]="aplicaCssErro('cidade')">
-      <div class="col-sm-3">
-        <label for="cidade" class="control-label">Cidade</label>
-      </div>
-      <div class="col-sm-3">
-        <input
-        type="text"
-        class="form-control"
-        formControlName="cidade"
-         id="cidade"
-        placeholder="Cidade">
-        <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('cidade')"
-        msgErro="cidade é obrigatório">
-      </app-campo-control-erro>
-      </div>
-    </div>
-
-    <div class="form-group" [ngClass]="aplicaCssErro('cep')">
-      <div class="col-sm-3">
-        <label for="cep" class="control-label">Cep</label>
-      </div>
-      <div class="col-sm-3">
-        <input
-        type="text"
-        class="form-control"
-        formControlName="cep"
-         id="cep"
-        placeholder="Cep">
-        <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('cep')"
-        msgErro="Cep é obrigatório">
-      </app-campo-control-erro>
-      </div>
-    </div>
-
-    <div class="form-group" [ngClass]="aplicaCssErro('estado')">
-      <div class="col-sm-3">
-        <label for="cep" class="control-label">Estado</label>
-      </div>
-      <div class="col-sm-3">
-        <input
-        type="text"
-        class="form-control"
-        formControlName="estado"
-         id="estado"
-        placeholder="Estado">
-        <app-campo-control-erro
-        [mostrarErro]="verificaValidTouched('estado')"
-        msgErro="Estado é obrigatório">
-      </app-campo-control-erro>
-      </div>
-    </div>
-
-
-  </form>
-
-
-  <div class="form-group" [ngClass]="aplicaCssErro('senha')">
-    <div class="col-sm-12">
-      <label for="senha" class="control-label">Senha</label>
-    </div>
-    <div class="col-sm-12">
-      <input type="text" class="form-control" formControlName="senha" id="senha" placeholder="Senha">
-      <app-campo-control-erro [mostrarErro]="verificaValidTouched('senha')" msgErro="Senha é obrigatória."></app-campo-control-erro>
-    </div>
-  </div>
-
-  <button type="button" class="btn" (click)="atribuirEndereco()">Cadastrar Endereço </button>
-  <button type="submit" class="btn btn-primary">Enviar Cadastro</button>
-  <button type="button" class="btn btn-secondary ml-2" (click)="gerarNovaSenha()">Gerar Nova Senha</button>
-  <button type="button" class="btn" (click)="resetar()">Cancelar</button>
-  <button type="button" class="btn btn-secondary ml-2" (click)="navegarParaLogin()">Já tem uma conta? Faça Login</button>
-
-  <app-form-debug [form]="formPessoa"></app-form-debug>
-  <app-form-debug [form]="formEndereco"></app-form-debug>
-</form>
+</fieldset>

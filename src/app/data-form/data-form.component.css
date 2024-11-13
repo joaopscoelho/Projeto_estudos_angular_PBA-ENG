@@ -1,0 +1,6 @@
+.fieldset-format {
+    border: 1px solid gainsboro;
+    margin: 10px 10px 10px 10px;
+    width: 70%;
+    border-radius: 5px;
+}
