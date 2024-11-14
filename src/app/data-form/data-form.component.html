@@ -3,7 +3,7 @@
   <div style="margin: 10px 10px 10px 10px;">
     <header>Dados Básicos pessoa</header>
 
-    <form class="form-horizontal" [formGroup]="formPessoa" (ngSubmit)="onSubmit()">
+    <form class="form-horizontal" [formGroup]="formPessoa">
       <div class="form-group" [ngClass]="aplicaCssErro('nome')">
         <div class="col-sm-12">
           <label for="nome" class="control-label">Nome</label>
@@ -59,7 +59,7 @@
         <div style="margin: 10px 10px 10px 10px;">
           <header>Endereço</header>
           <!-- rua numero bairro complemento cidade cep estado -->
-          <form [formGroup]="formEndereco" (ngSubmit)="onSubmit()">
+          <form [formGroup]="formEndereco">
             <legend>Endereço</legend>
             <div class="form-group" [ngClass]="aplicaCssErro('rua')">
               <div class="col-sm-12">
@@ -205,7 +205,7 @@
   
     
       <button type="button" class="btn" (click)="atribuirEndereco()">Cadastrar Endereço </button>
-      <button type="submit" class="btn btn-primary">Enviar Cadastro</button>
+      <button class="btn btn-primary" [disabled]="this.submmit" (click)="cadastrar()">Enviar Cadastro</button>
       <button type="button" class="btn btn-secondary ml-2" (click)="gerarNovaSenha()">Gerar Nova Senha</button>
       <button type="button" class="btn" (click)="resetar()">Cancelar</button>
       <button type="button" class="btn btn-secondary ml-2" (click)="navegarParaLogin()">Já tem uma conta? Faça Login</button>

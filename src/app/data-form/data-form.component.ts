@@ -12,6 +12,7 @@ export class DataFormComponent implements OnInit {
   formPessoa!: FormGroup;
   formEndereco!: FormGroup;
   enderecos: any [] = [];
+  submmit: boolean = false
 
   constructor(
     private FormBuilder: UntypedFormBuilder,
@@ -65,14 +66,16 @@ export class DataFormComponent implements OnInit {
 
 
 
-    onSubmit() {
+    cadastrar() {
       // Marca todos os campos como "touched" para exibir erros de validação
+      this.submmit = true
       this.formPessoa.markAllAsTouched();
       // this.formEndereco.markAllAsTouched();
 
       // Verifica se ambos os formulários são válidos
       if (this.formPessoa.invalid || this.formPessoa?.controls['endereco']?.value?.lenght > 0) {
         alert('Por favor, preencha todos os campos obrigatórios corretamente.');
+        this.submmit = false
         return; // Interrompe o envio se algum dos formulários for inválido
       }
 
@@ -88,8 +91,11 @@ export class DataFormComponent implements OnInit {
       // Envia os dados para o servidor
       this.enviarPessoa(valor).subscribe({
         next: (res) => {
-          if (HttpEventType.Response === res.type)
-              alert('Pessoa cadastrada com sucesso')
+          if (HttpEventType.Response === res.type) {
+            this.submmit = false
+            this.formPessoa.reset()
+            this.formEndereco.reset()
+          } 
         }
       })
     }
