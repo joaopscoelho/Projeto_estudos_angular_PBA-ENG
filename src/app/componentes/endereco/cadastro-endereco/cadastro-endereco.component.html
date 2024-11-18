@@ -1,0 +1,36 @@
+<form [formGroup]="formEndereco">
+    <div class="col-12">
+        <div class="grid col-8" >
+            <label class="col-1">CEP: </label>
+            <div class="col-2">
+                <p-inputMask [style]="{width: '65%'}" (onBlur)="emitirEndereco()" [mask]="'99999-999'" formControlName="cep"></p-inputMask>
+            </div>
+        </div>
+        <div class="grid col-8" >
+            <label class="col-1">Rua: </label>
+            <div class="col-5">
+                <input style="width: 100%;" (blur)="emitirEndereco()" pInputText formControlName="rua">
+            </div>
+        </div>
+        <div class="grid col-8">
+            <label class="col-1">Numero</label>
+            <div class="col-5">
+                <input style="width: 10%;" pKeyFilter="pnum" (blur)="emitirEndereco()" pInputText formControlName="numero">
+            </div>
+        </div>
+        <div class="grid col-8">
+            <label class="col-1">Cidade</label>
+            <div class="col-5">
+                <input style="width: 100%;" (blur)="emitirEndereco()" pInputText formControlName="cidade">
+            </div>
+        </div>
+        <div class="grid col-8">
+            <label class="col-1">Estado</label>
+            <div class="col-5">
+                <input style="width: 20%;" (blur)="emitirEndereco()" pInputText formControlName="estado">
+            </div>
+        </div>
+    </div>
+</form>
+
+

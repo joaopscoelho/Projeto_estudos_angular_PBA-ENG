@@ -1,0 +1,36 @@
+<p-panel>
+    <p-header severity="primary" >Enderecos</p-header>
+
+    <cadastro-endereco (emitDadosEndereco)="receberEnderecos($event)"></cadastro-endereco>
+
+    <p-footer class="buttons-filter">
+        <button pButton [label]="'Salvar'"></button>
+        <button pButton [label]="'Limpar'"></button>
+    </p-footer>
+    
+</p-panel>
+
+<br/>
+
+<p-table styleClass="p-datatable-gridlines" [columns]="colunas" [value]="enderecos" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5" style="text-align: center">Nenhuma endereco cadastrado</td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

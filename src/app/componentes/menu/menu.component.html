@@ -1,0 +1,23 @@
+
+<p-card [style]="{height: '25px', marginBottom: '10px' }">
+    <div class="grid" style="margin-top: -32px;">
+        <div class="col-11">
+            <p-button  class="format-button" [text]="true" severity="secondary" 
+                [icon]="'pi pi-bars'" (onClick)="sidebarMenu = true">
+            </p-button>
+        </div>
+        <div class="col-1" style="text-align: end">
+            <p-button  class="format-button" [text]="true" severity="secondary" 
+                [icon]="'pi pi-user'" >
+            </p-button>
+        </div>
+    </div>
+</p-card>
+
+<p-sidebar [(visible)]="sidebarMenu" [style]="{ marginRight: '-10px' }">
+    <h3>Aplicação para testes</h3>
+    <p-tieredMenu [model]="itensMenu"/>
+</p-sidebar>
+
+
+

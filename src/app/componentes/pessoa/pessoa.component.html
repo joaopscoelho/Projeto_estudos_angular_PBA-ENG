@@ -1,0 +1,61 @@
+<p-panel>
+    <p-header>Pessoas</p-header>
+
+    <div class="col-12 grid">
+        <div class="col-3">
+            <label>Nome:</label>
+            <input class="col-12" pInputText [(ngModel)]="filtro.nome">
+        </div>
+        <div class="col-1">
+            <label>CPF:</label>
+            <p-inputMask [style]="{width: '100px'}"  [mask]="'999.999.999-99'" [(ngModel)]="filtro.cpf" ></p-inputMask>
+        </div>
+        <div class="col-1">
+            <label>Data nascimento:</label>
+            <p-calendar [maxDate]="maxDate" [(ngModel)]="filtro.dataNascimento"></p-calendar>
+        </div>
+    </div>
+
+    <p-footer class="buttons-filter">
+        <button pButton [icon]="'pi pi-search'">Pesquisar</button>
+        <button pButton [icon]="'pi pi-trash'">Limpar</button>
+        <button pButton [icon]="'pi pi-plus'" (click)="cadastrarPessoa()" >Novo</button>
+    </p-footer>
+</p-panel>
+
+<br/>
+
+<p-table styleClass="p-datatable-gridlines" [columns]="cols" [value]="pessoas" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [style]="col.style">
+                {{ col.header }}
+            </th>
+            <th style="text-align: center;">
+                Ações
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5" style="text-align: center">Nenhuma pessoa cadastrada</td>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{ col.field === 'dataNascimento' ? (rowData[col.field] | date:'dd/MM/yyyy' ) :  rowData[col.field] }}
+            </td>
+            <td style="text-align: center;">
+               <button severity="secondary" style="margin-right: 5px;" pButton 
+                    (click)="editarPessoa(rowData)" [icon]="'pi pi-pencil'"></button>
+               <button severity="secondary" style="margin-right: 5px;" 
+                    class="buttons-table" pButton [icon]="'pi pi-trash'" (click)="deletarPessoa(rowData)"></button>
+            </td>
+            
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-confirmDialog [key]="'key_delete_pessoa'"></p-confirmDialog>

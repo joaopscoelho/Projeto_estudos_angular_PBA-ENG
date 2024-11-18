@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/bootstrap4-dark-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import 'primeflex/primeflex.scss';
+@import "primeicons/primeicons.css";
+@import '../node_modules/ngx-guided-tour/scss/guided-tour-base-theme.scss';
+
+html {
+    font-size: 12px; 
+}
+
+// body {
+//     font-size: 1rem;
+// }

@@ -1,0 +1,23 @@
+:host ::ng-deep .p-panel .p-panel-header {
+    height: 10px;
+}
+
+:host ::ng-deep .p-inputtext{
+    height: 20px;
+}
+
+:host ::ng-deep .buttons-filter .p-button {
+    height: 20px;
+    width: 70px;
+    margin-right: 5px;
+    font-size: 10px;
+    text-align: center;
+}
+
+:host ::ng-deep .buttons-control .p-button {
+    height: 30px;
+    font-size: 10px;
+    max-width: 200px;
+    text-align: center;
+}
+

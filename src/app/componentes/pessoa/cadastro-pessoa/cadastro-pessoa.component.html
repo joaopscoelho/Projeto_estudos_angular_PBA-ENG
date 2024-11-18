@@ -1,0 +1,50 @@
+<p-panel [header]="id ? 'Edição de pessoa' : 'Cadastro de pessoa' ">
+
+    <p-tabView [(activeIndex)]="index">
+        <p-tabPanel [header]="'Dados básicos'" id="form-dados-pessoa">
+            <form [formGroup]="formPessoa">
+                <div class="grid col-8" >
+                    <label class="col-1">Nome: </label>
+                    <div class="col-5">
+                        <input style="width: 100%;" pInputText formControlName="nome">
+                    </div>
+                </div>
+                <div class="grid col-8" >
+                    <label class="col-1">CPF: </label>
+                    <div class="col-2">
+                        <p-inputMask [style]="{width: '100%'}" [mask]="'999.999.999-99'" formControlName="cpf"></p-inputMask>
+                    </div>
+                </div>
+                <div class="grid col-8" >
+                    <label class="col-1">Data de nascimento: </label>
+                    <div class="col-5">
+                        <p-calendar formControlName="dataNascimento" [maxDate]="maxDate" [showIcon]="true" ></p-calendar>
+                    </div>
+                </div>
+                <div class="grid col-8" >
+                    <label class="col-1">Email: </label>
+                    <div class="col-5">
+                        <input style="width: 100%;" pInputText formControlName="email">
+                    </div>
+                </div>
+            </form>
+        </p-tabPanel>
+
+        <p-tabPanel [header]="'Endereços'">
+            <enderecos></enderecos>
+        </p-tabPanel>
+
+    </p-tabView>
+
+    <p-footer>
+        <div class="grid">
+            <div class="col-10">
+                <button pButton (click)="previousTab()"> Voltar </button>
+            </div>
+            <div class="col-2" style="text-align: end;">
+                <button pButton (click)="nextTab()" >{{ id ? 'Alterar e continuar' : 'Salvar e continuar' }}</button>
+            </div>
+        </div>
+    </p-footer>
+
+</p-panel>
