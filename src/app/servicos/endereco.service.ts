@@ -1,11 +1,30 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Endereco } from '../classes/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EnderecoService {
 
-  constructor() { }
+  urlBase: string = 'http://localhost:8080/pessoas/endereco'
+  constructor(private _http: HttpClient) { }
+
+  cadastrar(endereco: Endereco) {
+    return this._http.post(`${this.urlBase}/cadastrar`, endereco, {observe: 'events', reportProgress: true})
+  }
+  
+  deletar() {
+    
+  }
+  
+  listarPorUsuario(id: any) {
+    return this._http.get(`${this.urlBase}/listar-por-usuario/${id}`, {observe: 'events', reportProgress: true})
+  }
+  
+  editar(endereco: Endereco) {
+    return this._http.post(`${this.urlBase}/editar`, endereco, {observe: 'events', reportProgress: true})
+  }
 
   
 }

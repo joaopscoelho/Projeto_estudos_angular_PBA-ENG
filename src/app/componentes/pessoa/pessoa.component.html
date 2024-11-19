@@ -17,7 +17,7 @@
     </div>
 
     <p-footer class="buttons-filter">
-        <button pButton [icon]="'pi pi-search'">Pesquisar</button>
+        <button pButton [icon]="'pi pi-search'" (click)="pesquisarPessoa()" >Pesquisar</button>
         <button pButton [icon]="'pi pi-trash'">Limpar</button>
         <button pButton [icon]="'pi pi-plus'" (click)="cadastrarPessoa()" >Novo</button>
     </p-footer>
@@ -38,7 +38,7 @@
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="5" style="text-align: center">Nenhuma pessoa cadastrada</td>
+            <td colspan="6" style="text-align: center">Nenhuma pessoa cadastrada</td>
         </tr>
     </ng-template>
 

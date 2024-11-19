@@ -34,6 +34,10 @@ export class CadastroEnderecoComponent {
     this.emitDadosEndereco.emit(this.formEndereco.value)
   }
 
+  limparFormEndereco() {
+    this.formEndereco.reset()
+  }
+
   
 
   

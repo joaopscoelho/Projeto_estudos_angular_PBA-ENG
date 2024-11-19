@@ -72,9 +72,9 @@ export class CadastroPessoaComponent {
   };
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this._tour.startTour(this.tour);
-    }, 1000) 
+    // setTimeout(() => {
+    //   this._tour.startTour(this.tour);
+    // }, 1000) 
   }
   
   ngOnInit(): void {
@@ -96,6 +96,7 @@ export class CadastroPessoaComponent {
   }
 
   popularForm(pessoa: Pessoa) {
+    this.pessoa = pessoa
     this.formPessoa.patchValue({
       id: pessoa.id,
       nome: pessoa.nome,

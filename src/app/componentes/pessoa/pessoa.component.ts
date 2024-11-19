@@ -56,11 +56,33 @@ export class PessoaComponent {
     this.carregarLista()
   }
 
-  carregarLista() {
+  pesquisarPessoa() {
     this._pessoaService.pesquisar(this.filtro).subscribe({
       next: (res) => {
-        if (res.type === HttpEventType.Response)
+        if (res.type === HttpEventType.Sent) {
+          this._msg.add({severity: 'info', summary: 'Pesquisando pessoa...', sticky: true})
+        }
+        if (res.type === HttpEventType.Response) {
+          setTimeout(() => {
+            this._msg.clear()
+            this._msg.add({severity: 'success', summary: 'A pesquisa foi um sucesso', sticky: true})
+          }, 1000)
+        }
+      },
+      error:(error) => {
+        this._msg.add({severity: 'error', summary: 'Falha na pesquisa de pessoa', detail: error})
+      }
+    })
+  }
+
+  carregarLista() {
+    this._pessoaService.pesquisar().subscribe({
+      next: (res) => {
+        if (res.type === HttpEventType.Response){
+          console.log('Pessoas: ', res.body);
+          
           this.pessoas = <Pessoa[]> res.body
+        }
       }
     })
   }

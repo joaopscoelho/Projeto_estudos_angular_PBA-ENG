@@ -17,7 +17,7 @@ export class PessoaService {
     return this._http.post(`${this.url}/cadastrar-pessoa`, pessoa, {observe: 'events', reportProgress: true})
   }
 
-  pesquisar(pessoa: FilterPessoa) {
+  pesquisar(pessoa?: FilterPessoa) {
     return this._http.post(`${this.url}/pesquisar-pessoas`, pessoa, {observe: 'events', reportProgress: true})
   }
 
