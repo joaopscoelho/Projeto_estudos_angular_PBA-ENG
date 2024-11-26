@@ -33,9 +33,9 @@ import { ConfirmDialog } from 'primeng/confirmdialog';
 })
 export class EnderecoComponent {
   colunas: any= []
-  @Input() pessoa: Pessoa = new Pessoa()
+  @Input() pessoa!: Pessoa
   @ViewChild('cp_enderero') cp_endereco!: CadastroEnderecoComponent
-  endereco: Endereco = new Endereco()
+  endereco!: Endereco
   enderecos: Endereco [] = []
   constructor(private _enderecoService: EnderecoService,
     private _msg: MessageService,
@@ -59,9 +59,9 @@ export class EnderecoComponent {
     
     setTimeout(() => {
       console.log(this.pessoa);
-      // if (this.pessoa.id) {
+      if (this.pessoa.id) {
         this.listarEnderecoUsuario(this.pessoa.id)
-      // }
+      }
     }, 1000) 
   }
 
@@ -86,14 +86,16 @@ export class EnderecoComponent {
 
   salvarcadastrarEndereco() {
     if (this.endereco.id) {
-      this.endereco.id = this.pessoa?.id
+      this.endereco.pessoa = {id: this.pessoa?.id}
       this._enderecoService.editar(this.endereco).subscribe({
         next: (res) => {
           if (res.type === HttpEventType.Sent)
             this._msg.add({severity: 'info', summary: 'Atualizando endereco...', sticky: true})
-          if (res.type === HttpEventType.Sent) {
+          if (res.type === HttpEventType.Response) {
             this._msg.clear()
             this._msg.add({severity: 'success', summary: 'Endereço atualizado com sucesso!'})
+            this.listarEnderecoUsuario(this.pessoa?.id)
+            this.limparForm()
           }
         },
         error: (error) => {
@@ -102,14 +104,17 @@ export class EnderecoComponent {
         }
       })
     } else {
-      this.endereco.id = this.pessoa?.id
+      this.endereco.pessoa = {id: this.pessoa?.id}
       this._enderecoService.cadastrar(this.endereco).subscribe({
         next: (res) => {
           if (res.type === HttpEventType.Sent)
             this._msg.add({severity: 'info', summary: 'Cadastrando endereco...', sticky: true})
-          if (res.type === HttpEventType.Sent) {
+          if (res.type === HttpEventType.Response) {
             this._msg.clear()
             this._msg.add({severity: 'success', summary: 'Endereço cadastrado com sucesso!'})
+            this.listarEnderecoUsuario(this.pessoa?.id)
+            this.limparForm()
+
           }
         },
         error: (error) => {

@@ -22,7 +22,6 @@ import { FormService } from '../../../utils/form-service';
 
 export class CadastroEnderecoComponent {
 
-  @Input() pessoa: Pessoa = new Pessoa()
   @Output() emitDadosEndereco = new EventEmitter() 
   formEndereco: UntypedFormGroup
 

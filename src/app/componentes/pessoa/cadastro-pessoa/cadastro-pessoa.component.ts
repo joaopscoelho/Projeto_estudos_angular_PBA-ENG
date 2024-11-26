@@ -115,6 +115,7 @@ export class CadastroPessoaComponent {
 
   nextTab() {
     this.pessoa = <Pessoa>this.formPessoa.value
+    this.loading = true
     if (this.id) {
       this._pessoaService.editar(this.pessoa).subscribe({
         next: (res) => {
@@ -124,13 +125,16 @@ export class CadastroPessoaComponent {
           if (HttpEventType.Response === res.type) {
             this._msg.clear()
             this._msg.add({severity: 'success', summary: 'Pessoa atualizada com sucesso!'})
+            this.pessoa = <Pessoa> res.body
             setTimeout(() => { // Delay para avançar para aproxima guia
+              this.loading = false
               this.index++
             }, 500)
           }
         }, error: (error) => {
             this._msg.clear()
             this._msg.add({severity: 'error', summary: `Falha na atualização da pessoa ${this.pessoa?.nome}`, detail: error})
+            this.loading = false
         } 
       })
     } else {
@@ -142,13 +146,17 @@ export class CadastroPessoaComponent {
           if (HttpEventType.Response === res.type) {
             this._msg.clear()
             this._msg.add({severity: 'success', summary: 'Pessoa cadastrada com sucesso!'})
+            this.pessoa = <Pessoa> res.body
             setTimeout(() => { // Delay para avançar para aproxima guia
+              this.loading = false
               this.index++
             }, 500)
           }
         }, error: (error) => {
             this._msg.clear()
             this._msg.add({severity: 'error', summary: `Falha na atualização da pessoa ${this.pessoa?.nome}`, detail: error})
+            this.loading = false
+
         } 
       })
     }

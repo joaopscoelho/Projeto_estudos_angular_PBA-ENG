@@ -79,9 +79,9 @@ export class PessoaComponent {
     this._pessoaService.pesquisar().subscribe({
       next: (res) => {
         if (res.type === HttpEventType.Response){
-          console.log('Pessoas: ', res.body);
-          
           this.pessoas = <Pessoa[]> res.body
+          console.log('Pessoas: ', this.pessoas);
+          
         }
       }
     })

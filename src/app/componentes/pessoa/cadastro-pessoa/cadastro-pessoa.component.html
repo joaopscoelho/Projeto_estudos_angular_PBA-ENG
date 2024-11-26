@@ -41,8 +41,8 @@
             <div class="col-10">
                 <button pButton (click)="previousTab()"> Voltar </button>
             </div>
-            <div class="col-2" style="text-align: end;">
-                <button pButton (click)="nextTab()" >{{ id ? 'Alterar e continuar' : 'Salvar e continuar' }}</button>
+            <div class="col-2" style="text-align: end;"> 
+                <button pButton (click)="nextTab()" [loading]="loading" >{{ id ? 'Alterar e continuar' : 'Salvar e continuar' }}</button>
             </div>
         </div>
     </p-footer>

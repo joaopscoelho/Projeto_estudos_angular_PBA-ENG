@@ -4,7 +4,6 @@ export class Pessoa {
     nome: any = null
     dataNascimento: any = null
     cpf: any = null
-    senha: any = null
     email: any = null
     enderecos: any [] = []
 }

@@ -4,7 +4,7 @@
     <cadastro-endereco #cp_enderero (emitDadosEndereco)="receberEnderecos($event)"></cadastro-endereco>
 
     <p-footer class="buttons-filter">
-        <button pButton [label]="endereco.id ? 'Alterar' : 'Salvar'" (click)="salvarcadastrarEndereco()" ></button>
+        <button pButton [label]="endereco?.id ? 'Alterar' : 'Salvar'" (click)="salvarcadastrarEndereco()" ></button>
         <button pButton [label]="'Limpar'" (click)="limparForm()"></button>
     </p-footer>
     
