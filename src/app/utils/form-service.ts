@@ -15,7 +15,7 @@ export class FormService {
         rua: [null, Validators.required],
         numero: [null, Validators.required],
         cidade: [null, Validators.required],
-        estado: [null, Validators.email],
+        estado: [null, Validators.required],
         cep: [null],
         pessoa: [null]
       }) 
@@ -27,8 +27,7 @@ export class FormService {
         nome: [null, Validators.required],
         email: [null, Validators.email],
         cpf: [null, Validators.required],
-        senha: [null, Validators.required],
-        dataNascimento: [null],
+        dataNascimento: [Validators.required],
         enderecos: [null] 
       }) 
     }

@@ -30,8 +30,12 @@
             </form>
         </p-tabPanel>
 
-        <p-tabPanel [header]="'Endereços'">
+        <p-tabPanel [header]="'Endereços'" [disabled]="!this.pessoa?.id">
             <enderecos [pessoa]="pessoa"></enderecos>
+        </p-tabPanel>
+
+        <p-tabPanel [header]="'Telefones'" [disabled]="!this.pessoa?.id">
+            <h3>Implementar</h3>
         </p-tabPanel>
 
     </p-tabView>
@@ -42,7 +46,8 @@
                 <button pButton (click)="previousTab()"> Voltar </button>
             </div>
             <div class="col-2" style="text-align: end;"> 
-                <button pButton (click)="nextTab()" [loading]="loading" >{{ id ? 'Alterar e continuar' : 'Salvar e continuar' }}</button>
+                <button pButton (click)="nextTab()" [loading]="loading" >
+                    {{ id ? index === 2 ? 'Confirmar e sair' : 'Alterar e continuar' : 'Salvar e continuar' }}</button>
             </div>
         </div>
     </p-footer>

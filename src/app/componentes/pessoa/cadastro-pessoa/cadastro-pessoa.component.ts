@@ -1,7 +1,7 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -42,12 +42,13 @@ export class CadastroPessoaComponent {
   id: any = null
   formPessoa: UntypedFormGroup 
   maxDate: Date = new Date()
-  pessoa: Pessoa = new Pessoa()
+  pessoa: any
   constructor(private _formService: FormService,
     private _pessoaService: PessoaService,
     private _msg: MessageService,
     private _activeRouter: ActivatedRoute,
-    private _tour: GuidedTourService
+    private _tour: GuidedTourService,
+    private _router: Router
   ) {
     this.formPessoa = this._formService.criarFormPessoa()
   }
@@ -92,7 +93,6 @@ export class CadastroPessoaComponent {
         }
       })
     }
-
   }
 
   popularForm(pessoa: Pessoa) {
@@ -113,10 +113,24 @@ export class CadastroPessoaComponent {
     }
   }
 
+  variarIndice() {
+    if (this.index !== 2)
+      this.index++
+    else
+      this._router.navigate(['pessoa/listar'])
+  }
+
   nextTab() {
-    this.pessoa = <Pessoa>this.formPessoa.value
+    this.pessoa = <Pessoa> this.formPessoa.value
     this.loading = true
-    if (this.id) {
+
+    if (this.formPessoa.invalid) {
+      this._msg.add({severity: 'warn', summary: 'Formulario inválido'})
+      this.loading = false
+      return
+    }
+
+    if (this.pessoa?.id) {
       this._pessoaService.editar(this.pessoa).subscribe({
         next: (res) => {
           if (HttpEventType.Sent === res.type){
@@ -126,9 +140,10 @@ export class CadastroPessoaComponent {
             this._msg.clear()
             this._msg.add({severity: 'success', summary: 'Pessoa atualizada com sucesso!'})
             this.pessoa = <Pessoa> res.body
+            this.popularForm(this.pessoa) // Atualiza o form de pessoa
             setTimeout(() => { // Delay para avançar para aproxima guia
               this.loading = false
-              this.index++
+              this.variarIndice()
             }, 500)
           }
         }, error: (error) => {
@@ -147,16 +162,16 @@ export class CadastroPessoaComponent {
             this._msg.clear()
             this._msg.add({severity: 'success', summary: 'Pessoa cadastrada com sucesso!'})
             this.pessoa = <Pessoa> res.body
+            this.popularForm(this.pessoa) // Atualiza o form de pessoa
             setTimeout(() => { // Delay para avançar para aproxima guia
               this.loading = false
-              this.index++
+              this.variarIndice()
             }, 500)
           }
         }, error: (error) => {
             this._msg.clear()
             this._msg.add({severity: 'error', summary: `Falha na atualização da pessoa ${this.pessoa?.nome}`, detail: error})
-            this.loading = false
-
+            // this.loading = false
         } 
       })
     }

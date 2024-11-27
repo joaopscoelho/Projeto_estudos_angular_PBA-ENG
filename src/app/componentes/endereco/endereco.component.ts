@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, UntypedFormGroup } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -12,7 +12,7 @@ import { Endereco, Pessoa } from '../../classes/models';
 import { EnderecoService } from '../../servicos/endereco.service';
 import { HttpEventType } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ConfirmDialog, ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'enderecos',
@@ -27,6 +27,7 @@ import { ConfirmDialog } from 'primeng/confirmdialog';
     CommonModule,
     TableModule,
     CadastroEnderecoComponent,
+    ConfirmDialogModule
 ],
   templateUrl: './endereco.component.html',
   styleUrl: './endereco.component.scss'
@@ -35,12 +36,13 @@ export class EnderecoComponent {
   colunas: any= []
   @Input() pessoa!: Pessoa
   @ViewChild('cp_enderero') cp_endereco!: CadastroEnderecoComponent
-  endereco!: Endereco
+  endereco!: any
   enderecos: Endereco [] = []
+  formEndereco!: UntypedFormGroup
+  loading: boolean = false;
   constructor(private _enderecoService: EnderecoService,
     private _msg: MessageService,
-    private _confirm: ConfirmationService
-  ) {
+    private _confirm: ConfirmationService) {
   }
 
   ngOnInit(): void {
@@ -51,12 +53,9 @@ export class EnderecoComponent {
       {header: 'Estado', field: 'estado', style: 'width: 200px'},
       {header: 'CEP', field: 'cep', style: 'width: 100px'},
     ]
-
-   
   }
   
   ngAfterViewInit(): void {
-    
     setTimeout(() => {
       console.log(this.pessoa);
       if (this.pessoa.id) {
@@ -65,9 +64,36 @@ export class EnderecoComponent {
     }, 1000) 
   }
 
+  editarEndereco(row: any) {
+    this.cp_endereco?.popularFormEndereco(row)
+  }
+
+  deletarEndereco(row: any) {
+    this._confirm.confirm({
+      header: 'Exclusão de enderecos',
+      message: 'Deseja excluir o endereço?',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      key: 'cd-cadastro-endereco',
+      accept: () => {
+        this._enderecoService.deletar(row?.id).subscribe({
+          next: (res) => {
+            if (res.type === HttpEventType.Response) {
+              this._msg.add({severity: 'success', summary: 'Endereço deletado com sucesso!'})
+              this.listarEnderecoUsuario(this.pessoa?.id)
+            }
+          }, 
+          error: (error) => {
+            this._msg.add({severity: 'error', summary: 'Falha na exclusão do endereço', detail: error?.message})
+          }
+        })
+      }
+    })
+  }
+
   receberEnderecos(event: any) {
     console.log(event);
-    this.endereco = event
+    this.formEndereco = event
   }
 
   limparForm() {
@@ -85,6 +111,17 @@ export class EnderecoComponent {
 
 
   salvarcadastrarEndereco() {
+
+    this.loading = true
+
+    if (this.formEndereco.invalid) {
+      this._msg.add({severity: 'warn', summary: 'Formulário incompleto'})
+      this.loading = false
+      return
+    } 
+
+    this.endereco = this.formEndereco.value
+
     if (this.endereco.id) {
       this.endereco.pessoa = {id: this.pessoa?.id}
       this._enderecoService.editar(this.endereco).subscribe({

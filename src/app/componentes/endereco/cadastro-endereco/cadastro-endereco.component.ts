@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/for
 import { InputMaskModule } from 'primeng/inputmask';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputTextModule } from 'primeng/inputtext';
-import { Pessoa } from '../../../classes/models';
+import { Endereco, Pessoa } from '../../../classes/models';
 import { FormService } from '../../../utils/form-service';
 
 @Component({
@@ -30,11 +30,23 @@ export class CadastroEnderecoComponent {
   }
 
   emitirEndereco() {
-    this.emitDadosEndereco.emit(this.formEndereco.value)
+    this.emitDadosEndereco.emit(this.formEndereco)
   }
 
   limparFormEndereco() {
     this.formEndereco.reset()
+  }
+
+  popularFormEndereco(endereco: Endereco) {
+    this.formEndereco.patchValue({
+      id: endereco?.id,
+      rua: endereco?.rua,
+      numero: endereco?.numero,
+      cidade: endereco?.cidade,
+      estado: endereco?.estado,
+      cep: endereco?.cep,
+      pessoa: endereco?.pessoa
+    })
   }
 
   

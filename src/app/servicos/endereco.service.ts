@@ -14,8 +14,8 @@ export class EnderecoService {
     return this._http.post(`${this.urlBase}/cadastrar`, endereco, {observe: 'events', reportProgress: true})
   }
   
-  deletar() {
-    
+  deletar(id: any) {
+    return this._http.delete(`${this.urlBase}/deletar/${id}`, {observe: 'events', reportProgress: true})
   }
   
   listarPorUsuario(id: any) {
